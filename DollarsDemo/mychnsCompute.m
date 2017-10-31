@@ -180,7 +180,7 @@ function chns = addChn( chns, data, name, pChn, padWith, h, w )
 % Helper function to add a channel to chns.
 [h1,w1,~]=size(data);
 %if(strcmp(name,'MYChns')==0) %CJ
-  if(h1~=h || w1~=w), data=imResampleMex(data,h,w,1);
+if(h1~=h || w1~=w), data=imResampleMex(data,h,w,1);
   assert(all(mod([h1 w1]./[h w],1)==0)); end
 %end %CJ
 

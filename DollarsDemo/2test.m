@@ -42,10 +42,10 @@ imgNms=bbGt('getFiles',{[dataDir 'test/pos']});
 for i=1:length(imgNms)
     I=imread(imgNms{i});
     tic, bbs=acfDetect(I,detector); toc
-    figure(1); im(I); bbApply('draw',bbs); 
-%     boxedI = bbApply( 'embed', I, bbs);
-%     savename=regexp(imgNms{i}, '\', 'split');savename=savename{7};
-%     imwrite(boxedI,sprintf('%s\\%s',outputDir,savename))
+   figure(1); im(I); bbApply('draw',bbs); %œ‘ æ
+%     boxedI = bbApply( 'embed', I, bbs);  %¥Ê¥¢
+%     savename=regexp(imgNms{i}, '\', 'split');savename=savename{7};%¥Ê¥¢
+%     imwrite(boxedI,sprintf('%s\\%s',outputDir,savename)) %¥Ê¥¢
     pause(1);  
 end
 

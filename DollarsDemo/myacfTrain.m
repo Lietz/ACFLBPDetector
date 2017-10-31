@@ -137,14 +137,15 @@ for stage = 0:numel(opts.nWeak)-1
     [Is1,IsOrig1] = sampleWins( detector, stage, 1 );
     t=ndims(Is1); if(t==3), t=Is1(:,:,1); else t=Is1(:,:,:,1); end
 %     pChns=mychnsCompute();hFunc=@(I)LBP(I,1);%CJ
-    pChns=mychnsCompute();hFunc=@(I)uniformLBPTrans(I);%CJ
+    pChns=opts.pPyramid.pChns;hFunc=@(I)uniformLBPTrans(I);%CJ
     pChns.pCustom=struct('name','MYChns','hFunc',hFunc); pChns.complete=0;%CJ
     pChns.pCustom.enabled=1;  %关闭自定义通道
     %%关闭颜色梯度幅值通道
 %     pChns.pGradMag.enabled=0;
  %   t=mychnsCompute(t,opts.pPyramid.pChns); detector.info=t.info;
     t=mychnsCompute(t,pChns); detector.info=t.info;
-  end
+  end 
+  
  
   
   % compute local decorrelation filters
@@ -214,11 +215,12 @@ dfs= { 'pPyramid',{}, 'filters',[], ...
   'nPerNeg',25, 'nAccNeg',10000, 'pJitter',{}, 'winsSave',0 };
 opts = getPrmDflt(varargin,dfs,1);
 % fill in remaining parameters
-p=mychnsPyramid([],opts.pPyramid); p=p.pPyramid;
+p=mychnsPyramid([],opts.pPyramid);%%CJ
+p=p.pPyramid;
 p.minDs=opts.modelDs; shrink=p.pChns.shrink;
 opts.modelDsPad=ceil(opts.modelDsPad/shrink)*shrink;
 p.pad=ceil((opts.modelDsPad-opts.modelDs)/shrink/2)*shrink;
-p=mychnsPyramid([],p); p=p.pPyramid; p.complete=1;
+p=mychnsPyramid([],p); p=p.pPyramid; p.complete=1; %%CJ
 p.pChns.complete=1; opts.pPyramid=p;
 % initialize pNms, pBoost, pBoost.pTree, and pLoad
 dfs={ 'type','maxg', 'overlap',.65, 'ovrDnm','min' };
@@ -321,9 +323,9 @@ fprintf('Extracting features... '); start=clock; fs=opts.filters;
 pChns=opts.pPyramid.pChns; 
 %CJ
 % hFunc=@(I)LBP(I,1);%CJ
-hFunc=@(I)uniformLBPTrans(I);%CJ
-pChns.pCustom=struct('name','MYChns','hFunc',hFunc); pChns.complete=0;%CJ
-pChns.pCustom.enabled=1; %关闭自定义通道
+% hFunc=@(I)uniformLBPTrans(I);%CJ
+% pChns.pCustom=struct('name','MYChns','hFunc',hFunc); pChns.complete=0;%CJ
+% pChns.pCustom.enabled=1; %关闭自定义通道
 %
 %%关闭颜色梯度幅值通道
 % pChns.pGradMag.enabled=0;

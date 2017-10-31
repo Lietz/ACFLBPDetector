@@ -21,14 +21,14 @@ detector = myacfTrain( opts );
 %% modify detector (see acfModify)
 %   .cascThr    - [] constant cascade threshold (affects speed/accuracy)
 %   .cascCal    - [] cascade calibration (affects speed/accuracy)
-% pNms=struct('thr',40,'type','ms');
-% pModify=struct('cascThr',-1,'cascCal',.01,'pNms',pNms);
-pModify=struct('cascThr',-1,'cascCal',.01);
+pNms=struct('thr',.05);
+pModify=struct('cascThr',-1,'cascCal',.01,'pNms',pNms);
+% pModify=struct('cascThr',-1,'cascCal',.01);
 detector=acfModify(detector,pModify);
 
 %% run detector on a sample image (see acfDetect)
 imgNms=bbGt('getFiles',{[dataDir 'test/pos']}); %所有图片地址
-I=imread(imgNms{3}); 
+I=imread(imgNms{2}); 
 tic, bbs=acfDetect(I,detector); toc %tic toc 计时
 figure(1); im(I); bbApply('draw',bbs); pause(.1);
 
