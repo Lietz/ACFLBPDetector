@@ -1,0 +1,31 @@
+%% Fast simple pedestrian detection demo script
+% Using Piotr Dollar's ChnFtrs detector.
+% Calum Blair 11/3/14
+dxcxzxvislndv;asdf
+
+%% 0) Download sample image and this script from:
+% http://home.eps.hw.ac.uk/~cgb7/ped_demo/ped_sample.zip
+
+% unpack both and then run this script:
+img = imread('inria_sample.png');
+
+%% 1) Download and unzip Piotr Dollar's toolbox from:
+% http://vision.ucsd.edu/~pdollar/toolbox/doc/index.html
+
+% change this path to point to the full path of the downloaded toolbox
+toolbox_location = 'd:\temp\publish';
+
+%add to path
+addpath(genpath(toolbox_location))
+
+%% 2) Load pre-trained detector model. Can use the one trained on INRIA or Caltech datasets, there is little difference.
+cd([toolbox_location '/toolbox/']) %should be inside the toolbox folder now..
+load('detector/models/acfInriaDetector.mat','detector'); %load INRIA-trained detector
+
+%% 3) Run on the sample image
+bbs = acfDetect(img,detector); %return bounding boxes [x y w h score]
+imshow(img);
+bbApply('draw',bbs);
+
+%% 4) For more details see Dollar's train & test instructions:
+% edit detector/acfDemoInria.m
