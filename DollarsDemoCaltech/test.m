@@ -11,7 +11,7 @@ for s=1:2
 end
 
 %% set up opts for training detector (see acfTrain)
-opts=acfTrain(); opts.modelDs=[50 20.5]; opts.modelDsPad=[64 32];
+opts=myacfTrain(); opts.modelDs=[50 20.5]; opts.modelDsPad=[64 32];
 opts.pPyramid.pChns.pColor.smooth=0; opts.nWeak=[64 256 1024 4096];
 opts.pBoost.pTree.maxDepth=5; opts.pBoost.discrete=0;
 opts.pBoost.pTree.fracFtrs=1/16; opts.nNeg=25000; opts.nAccNeg=50000;
@@ -23,7 +23,7 @@ pLoad={'lbls',{'person'},'ilbls',{'people'},'squarify',{3,.41}};
 opts.pLoad = [pLoad 'hRng',[50 inf], 'vRng',[1 1] ];
 
 %% train detector (see acfTrain)
-detector = acfTrain( opts );
+detector = myacfTrain( opts );
 
 %% modify detector (see acfModify)
 pModify=struct('cascThr',-1,'cascCal',.025);
